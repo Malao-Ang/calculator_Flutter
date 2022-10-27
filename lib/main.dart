@@ -3,13 +3,17 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 void main() {
-  runApp(Calculator());
+  runApp(const CalculatorApp());
 }
 
-class Calculator extends StatelessWidget {
-  Calculator({Key? key}) : super(key: key);
+class CalculatorApp extends StatefulWidget {
+  const CalculatorApp({Key? key}) : super(key: key);
 
   @override
+  State<CalculatorApp> createState() => _CalculatorAppState();
+}
+
+class _CalculatorAppState extends State<CalculatorApp> {
   Widget build(BuildContext context) {
     Widget numberButton(String btnText, Color btnColor, Color txtClor) {
       return ElevatedButton(
@@ -112,24 +116,9 @@ class Calculator extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(28, 12, 90, 12),
-                        child: Text(
-                          "0",
-                          style: TextStyle(
-                            fontSize: 35,
-                            color: Colors.white,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(),
-                        primary: (Color.fromARGB(255, 20, 20, 20)),
-                      ),
-                    ),
+                    numberButton("AC", Colors.orange, Colors.white),
+                    numberButton(
+                        "0", Color.fromARGB(255, 20, 20, 20), Colors.white),
                     numberButton(
                         ".", Color.fromARGB(255, 20, 20, 20), Colors.white),
                     numberButton("=", Colors.orange, Colors.white),
@@ -181,8 +170,9 @@ class Calculator extends StatelessWidget {
     } else {
       result = int.parse(text + btnText).toString();
     }
-    // setState(() {
-    //   text = result;
-    // });
+
+    setState(() {
+      text = result;
+    });
   }
 }
